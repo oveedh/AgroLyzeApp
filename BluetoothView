@@ -1,0 +1,59 @@
+import SwiftUI
+
+struct BluetoothView: View {
+    @State private var phLevel: String = ""
+    @State private var moistureLevel: String = ""
+    @State private var nutrientLevel: String = ""
+    @State private var phUnavailable: Bool = false
+    @State private var moistureUnavailable: Bool = false
+    @State private var nutrientUnavailable: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("pH Level")) {
+                    TextField("Enter pH Level", text: $phLevel)
+                        .keyboardType(.decimalPad)
+                        .disabled(phUnavailable)
+                    Toggle("Unavailable", isOn: $phUnavailable)
+                }
+                
+                Section(header: Text("Moisture Level")) {
+                    TextField("Enter Moisture Level", text: $moistureLevel)
+                        .keyboardType(.decimalPad)
+                        .disabled(moistureUnavailable)
+                    Toggle("Unavailable", isOn: $moistureUnavailable)
+                }
+                
+                Section(header: Text("Nutrient Level")) {
+                    TextField("Enter Nutrient Level", text: $nutrientLevel)
+                        .keyboardType(.decimalPad)
+                        .disabled(nutrientUnavailable)
+                    Toggle("Unavailable", isOn: $nutrientUnavailable)
+                }
+                
+                Button(action: submitData) {
+                    Text("Submit")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding(.vertical)
+            }
+            .navigationTitle("Bluetooth Connection")
+        }
+    }
+    
+    func submitData() {
+        // Function to handle data submission
+    }
+}
+
+struct BluetoothView_Previews: PreviewProvider {
+    static var previews: some View {
+        BluetoothView()
+    }
+}
