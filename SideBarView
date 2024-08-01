@@ -1,0 +1,65 @@
+import SwiftUI
+
+struct SidebarView: View {
+    @Binding var isSidebarVisible: Bool
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Image("agrolyze_just_logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .padding(.top, 20)
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        isSidebarVisible.toggle()
+                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .imageScale(.large)
+                        .padding()
+                }
+            }
+            .padding(.horizontal)
+            
+            NavigationLink(destination: HomeView()) {
+                Label("Home", systemImage: "house.fill")
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color.brown.opacity(0.1))
+            .cornerRadius(10)
+
+            NavigationLink(destination: BluetoothView()) {
+                Label("Bluetooth", systemImage: "dot.radiowaves.left.and.right")
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color.brown.opacity(0.1))
+            .cornerRadius(10)
+
+            NavigationLink(destination: CameraView()) {
+                Label("Camera", systemImage: "camera.fill")
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color.brown.opacity(0.1))
+            .cornerRadius(10)
+
+            NavigationLink(destination: SettingsView()) {
+                Label("Settings", systemImage: "gearshape.fill")
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color.brown.opacity(0.1))
+            .cornerRadius(10)
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.white)
+        .edgesIgnoringSafeArea(.all)
+    }
+}
