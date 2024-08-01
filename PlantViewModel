@@ -1,0 +1,34 @@
+import SwiftUI
+
+struct Plant: Identifiable {
+    var id = UUID()
+    var name: String
+    var size: String
+    var location: String
+    var commitmentLevel: String
+}
+
+class PlantViewModel: ObservableObject {
+    @Published var plants: [Plant] = []
+    @Published var recommendedPlants: [Plant] = []
+    
+    init() {
+        loadPlants()
+    }
+    
+    func loadPlants() {
+        plants = [
+            Plant(name: "Tomato", size: "Medium", location: "Outdoor", commitmentLevel: "High"),
+            Plant(name: "Basil", size: "Small", location: "Indoor", commitmentLevel: "Low"),
+            Plant(name: "Sunflower", size: "Large", location: "Outdoor", commitmentLevel: "Medium")
+        ]
+    }
+    
+    func filterPlants(location: String, commitmentLevel: String, size: String) {
+        recommendedPlants = plants.filter { plant in
+            plant.location == location &&
+            plant.commitmentLevel == commitmentLevel &&
+            plant.size == size
+        }
+    }
+}
