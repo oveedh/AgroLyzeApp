@@ -1,0 +1,30 @@
+//
+//  CameraView.swift
+//  AgroLyze
+//
+//  Created by Moises Mizrachi on 7/22/24.
+//
+import SwiftUI
+
+struct CameraView: View {
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Identify your plants using the camera")
+                    .font(.title2)
+                    .padding()
+
+                // Camera functionality will go here
+                
+                Spacer()
+            }
+            .navigationBarTitle("Camera", displayMode: .inline)
+        }
+    }
+}
+
+struct CameraView_Previews: PreviewProvider {
+    static var previews: some View {
+        CameraView()
+    }
+}
