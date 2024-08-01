@@ -1,0 +1,44 @@
+import SwiftUI
+
+struct HomeView: View {
+    var body: some View {
+        TabView {
+
+            BluetoothView()
+                .tabItem {
+                    Image(systemName: "dot.radiowaves.left.and.right")
+                    Text("Bluetooth")
+                }
+            
+            CameraView()
+                .tabItem {
+                    Image(systemName: "camera.fill")
+                    Text("Camera")
+                }
+
+            MyPlantView()
+                .tabItem {
+                    Image(systemName: "leaf.fill")
+                    Text("My Plants")
+                }
+
+            RecommendedPlantsView()
+                .tabItem {
+                    Image(systemName: "star")
+                    Text("Recommendations")
+                }
+
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gearshape.fill")
+                    Text("Settings")
+                }
+        }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
+}
