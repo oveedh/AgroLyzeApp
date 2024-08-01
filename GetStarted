@@ -1,0 +1,56 @@
+import SwiftUI
+
+struct GetStartedView: View {
+    var body: some View {
+        NavigationView {
+            VStack {
+                Spacer()
+                
+                // App Logo
+                Image("logo") // Ensure "logo" is in your assets
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 200, height: 200)
+                    .padding()
+                
+                Text("AgroLyze")
+                    .font(.system(size: 40, weight: .bold, design: .serif))
+                    .foregroundColor(Color.brown)
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 10)
+                
+                // App Slogan
+                Text("Your Garden, Our Passion")
+                    .font(.system(size: 25, weight: .bold, design: .serif))
+                    .foregroundColor(Color.brown)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                Spacer()
+                
+                // Get Started Button
+                NavigationLink(destination: LoginView()) {
+                    Text("Get Started")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.brown)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 40)
+                }
+                .padding(.bottom, 40)
+                
+                Spacer()
+            }
+            .background(Color("LightBrown").edgesIgnoringSafeArea(.all))
+            .navigationBarHidden(true)
+        }
+    }
+}
+
+struct GetStarted_Previews: PreviewProvider {
+    static var previews: some View {
+        GetStartedView()
+    }
+}
