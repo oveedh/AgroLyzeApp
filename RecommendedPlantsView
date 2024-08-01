@@ -1,0 +1,50 @@
+import SwiftUI
+
+struct RecommendedPlantsView: View {
+    @StateObject private var viewModel = PlantViewModel()
+    @State private var selectedLocation = "Indoor"
+    @State private var selectedCommitmentLevel = "Low"
+    @State private var selectedSize = "Small"
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form {
+                    Picker("Location", selection: $selectedLocation) {
+                        Text("Indoor").tag("Indoor")
+                        Text("Outdoor").tag("Outdoor")
+                    }
+                    
+                    Picker("Commitment Level", selection: $selectedCommitmentLevel) {
+                        Text("Low").tag("Low")
+                        Text("Medium").tag("Medium")
+                        Text("High").tag("High")
+                    }
+                    
+                    Picker("Plant Size", selection: $selectedSize) {
+                        Text("Small").tag("Small")
+                        Text("Medium").tag("Medium")
+                        Text("Large").tag("Large")
+                    }
+                    
+                    Button(action: {
+                        viewModel.filterPlants(location: selectedLocation, commitmentLevel: selectedCommitmentLevel, size: selectedSize)
+                    }) {
+                        Text("Get Recommendations")
+                    }
+                }
+                
+                List(viewModel.recommendedPlants) { plant in
+                    Text(plant.name)
+                }
+            }
+            .navigationTitle("Plant Recommendations")
+        }
+    }
+}
+
+struct RecommendedPlantsView_Previews: PreviewProvider {
+    static var previews: some View {
+        RecommendedPlantsView()
+    }
+}
