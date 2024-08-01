@@ -1,0 +1,71 @@
+import SwiftUI
+
+struct PlantModel: Identifiable {
+    var id = UUID()
+    var name: String
+    var imageName: String
+    var description: String
+    var size: String
+    var location: String
+    var commitmentLevel: String
+}
+
+struct MyPlantView: View {
+    @State private var plants = [
+        PlantModel(name: "Spider Plant", imageName: "spiderplant", description: "Easy to care for, air-purifying.", size: "Small", location: "Indoor", commitmentLevel: "Low"),
+        PlantModel(name: "Snake Plant", imageName: "snakeplant", description: "Low maintenance, great for beginners.", size: "Medium", location: "Indoor", commitmentLevel: "Low"),
+        PlantModel(name: "Peace Lily", imageName: "peacelily", description: "Beautiful white flowers.", size: "Medium", location: "Indoor", commitmentLevel: "Medium"),
+        PlantModel(name: "Aloe Vera", imageName: "aloevera", description: "Medicinal plant, needs bright light.", size: "Small", location: "Indoor", commitmentLevel: "Low"),
+        PlantModel(name: "Fiddle Leaf Fig", imageName: "fiddleleaffig", description: "Popular indoor tree.", size: "Large", location: "Indoor", commitmentLevel: "High")
+    ]
+
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(plants) { plant in
+                    PlantWidget(plant: plant)
+                }
+            }
+            .padding()
+        }
+        .navigationTitle("My Plants")
+    }
+}
+
+struct PlantWidget: View {
+    var plant: PlantModel
+
+    var body: some View {
+        VStack {
+            Image(plant.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100, height: 100)
+                .clipShape(Circle())
+                .shadow(radius: 10)
+            
+            Text(plant.name)
+                .font(.headline)
+            
+            Text(plant.description)
+                .font(.caption)
+                .lineLimit(2)
+                .padding([.leading, .trailing], 10)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+    }
+}
+
+struct MyPlantView_Previews: PreviewProvider {
+    static var previews: some View {
+        MyPlantView()
+    }
+}
