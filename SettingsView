@@ -1,0 +1,114 @@
+import SwiftUI
+
+struct SettingsView: View {
+    @State private var userName = "John Doe"
+    @State private var email = "john.doe@example.com"
+    @State private var phoneNumber = "123-456-7890"
+    @State private var isPremium = false
+    
+    @State private var showingEditSheet = false
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form {
+                    Section(header: Text("User Information")) {
+                        HStack {
+                            Text("Name:")
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                            Spacer()
+                            Text(userName)
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                        }
+                        .padding(.vertical, 5)
+
+                        HStack {
+                            Text("Email:")
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                            Spacer()
+                            Text(email)
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                        }
+                        .padding(.vertical, 5)
+
+                        HStack {
+                            Text("Phone Number:")
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                            Spacer()
+                            Text(phoneNumber)
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                        }
+                        .padding(.vertical, 5)
+                        .onTapGesture {
+                            showingEditSheet.toggle()
+                        }
+                    }
+                    
+                    Section {
+                        Toggle(isOn: $isPremium) {
+                            Text("Premium User")
+                                .font(.system(size: 20, weight: .medium, design: .serif))
+                        }
+                        .padding(.vertical, 5)
+                    }
+                    
+                    Section {
+                        Button(action: {
+                            // Action to upgrade to premium
+                            isPremium.toggle()
+                        }) {
+                            Text(isPremium ? "Premium User" : "Upgrade to Premium")
+                                .font(.system(size: 20, weight: .semibold, design: .serif))
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(isPremium ? Color.gray : Color.brown)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                    }
+                }
+                
+                Spacer()
+            }
+            .background(Color("LightBrown").edgesIgnoringSafeArea(.all))
+            .navigationTitle("Settings")
+            .sheet(isPresented: $showingEditSheet) {
+                EditDetailsView(userName: $userName, email: $email, phoneNumber: $phoneNumber)
+            }
+        }
+    }
+}
+
+struct EditDetailsView: View {
+    @Binding var userName: String
+    @Binding var email: String
+    @Binding var phoneNumber: String
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Edit Information")) {
+                    TextField("Name", text: $userName)
+                    TextField("Email", text: $email)
+                    TextField("Phone Number", text: $phoneNumber)
+                }
+            }
+            .navigationTitle("Edit Details")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        // Dismiss the sheet
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
+}
